@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SharedPreferences sharedPrefs;
@@ -18,8 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int numero;
     TextView txtUsu;
     TextView txtPas;
-    private String usuario="admin";
-    private String senha="admin";
+    private String usuario;
+    private String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         numero = sharedPrefs.getInt("Numero", 0);
         usuario = sharedPrefs.getString("Usuario","");
-        senha = sharedPrefs.getString("Senha","");
-       // numero++;
+        pass = sharedPrefs.getString("Senha","");
+        // numero++;
 
 
         /*String mens = "Esta é a " + numero + "a. vez que esta aplicação roda";
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         Button botaoentrar = (Button) findViewById(R.id.btnEntrar);
-        Button botaosair = (Button) findViewById(R.id.btnSair);
         botaoentrar.setOnClickListener(this);
+        Button botaosair = (Button) findViewById(R.id.btnSair);
         botaosair.setOnClickListener(this);
 
 
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sharedPrefsEditor = sharedPrefs.edit();
         if (sharedPrefsEditor != null) {
             sharedPrefsEditor.putInt("Numero", numero);
-            sharedPrefsEditor.putString("Usuario", usuario);
-            sharedPrefsEditor.putString("Senha", senha);
+            sharedPrefsEditor.putString("Usuario", usuario="admin");
+            sharedPrefsEditor.putString("Senha", pass="admin");
 
             sharedPrefsEditor.commit();
         }
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // ação associado ao click do botão “Botão 1”
                 txtUsu = (TextView) findViewById(R.id.editText);
                 txtPas = (TextView) findViewById(R.id.editText2);
-                if(usuario.equals(txtUsu.getText().toString()) && senha.equals(txtPas.getText().toString())){
+                if(usuario.equals(txtUsu.getText().toString()) && pass.equals(txtPas.getText().toString())){
 
                     // proxima pagina
                     numero=0;
@@ -82,17 +83,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
 
-                if(numero == 4){
+                if(numero > 4){
                     Intent i=new Intent(this,bloqueio.class);
                     startActivity(i);
+                    finish();
                 }
                 break;
             case R.id.btnSair:
                 finish();
                 break;
-           /* case R.id.button_sair:
-                finish();  // finaliza a atividade
-                 break;*/
         }
 
     }
